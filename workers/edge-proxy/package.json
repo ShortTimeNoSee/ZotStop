@@ -1,0 +1,8 @@
+{
+  "name": "@zotstop/edge-proxy",
+  "private": true,
+  "type": "module",
+  "dependencies": {"@zotstop/transit-engine": "workspace:*"},
+  "devDependencies": {"wrangler": "^4.0.0"},
+  "scripts": {"dev": "wrangler dev", "deploy": "wrangler deploy"}
+}

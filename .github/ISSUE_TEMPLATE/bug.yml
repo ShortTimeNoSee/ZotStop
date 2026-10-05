@@ -1,0 +1,32 @@
+name: Bug or accessibility problem
+description: Report something that does not work as expected.
+body:
+  - type: markdown
+    attributes:
+      value: "For vulnerabilities, use private security reporting instead. Please remove personal locations, notifications, and identifying details from screenshots and logs."
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Describe what you expected and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we reproduce it?
+      description: Include the route or stop if relevant. Do not include your personal travel history.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: App version and device or browser
+      placeholder: Android app version, Android version, or browser name and version
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else that helps?
+      description: Screenshots, connection status, navigation mode, text size, or assistive technology, if relevant.

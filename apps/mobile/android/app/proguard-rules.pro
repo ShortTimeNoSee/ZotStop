@@ -1,0 +1,3 @@
+-keep class dev.zotstop.app.AospLocationPlugin { *; }
+-keep class dev.zotstop.app.RideAlertPlugin { *; }
+-keep class dev.zotstop.app.RideAlertService { *; }

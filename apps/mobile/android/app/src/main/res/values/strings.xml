@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ZotStop</string>
+    <string name="title_activity_main">ZotStop</string>
+    <string name="package_name">dev.zotstop.app</string>
+    <string name="custom_url_scheme">dev.zotstop.app</string>
+</resources>

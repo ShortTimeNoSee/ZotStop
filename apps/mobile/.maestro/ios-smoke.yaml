@@ -1,0 +1,37 @@
+appId: dev.zotstop.app
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- assertVisible: "ZotStop"
+- tapOn: "About and settings"
+- assertVisible: "About live times"
+- scrollUntilVisible:
+    element: "Privacy"
+- assertVisible: "Privacy"
+- tapOn: "Close"
+- scrollUntilVisible:
+    element: "All routes"
+    timeout: 90000
+- tapOn: "Routes"
+- scrollUntilVisible:
+    element: "Show routes on the map or open one to see its stops."
+- assertVisible: "Show routes on the map or open one to see its stops."
+- scrollUntilVisible:
+    element: ".*Arroyo Vista · Camino del Sol.*"
+- tapOn: ".*Arroyo Vista · Camino del Sol.*"
+- scrollUntilVisible:
+    element: "All routes"
+- scrollUntilVisible:
+    element: "Expand map"
+    direction: UP
+- tapOn: "Expand map"
+- assertVisible: "Close full screen map"
+- tapOn: "Close full screen map"
+- scrollUntilVisible:
+    element: "All routes"
+- tapOn: "Saved"
+- scrollUntilVisible:
+    element: "Nothing saved yet"
+- assertVisible: "Save a route view from the map, or open a stop and save it here."

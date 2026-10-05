@@ -1,0 +1,29 @@
+name: Refresh transit routes
+
+on:
+  schedule:
+    - cron: '0 4 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - run: python -m unittest discover -s scripts -p 'test_*.py'
+      - run: python scripts/compile-gtfs.py
+      - run: python scripts/compile-map.py --keep-existing-on-fetch-error
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: Refresh official transit route data
+          title: Refresh official transit route data
+          body: Automated update from the operator GTFS feed.
+          branch: automated/refresh-transit-routes
+          delete-branch: true

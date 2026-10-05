@@ -1,0 +1,15 @@
+name: Suggest an improvement
+description: Describe something that would make ZotStop more useful.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the situation and what gets in the way. You do not need to provide personal travel details.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would help?
+      description: A proposed change or example is welcome, but not required.

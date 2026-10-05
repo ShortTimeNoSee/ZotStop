@@ -1,0 +1,23 @@
+appId: dev.zotstop.app
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- repeat:
+    times: 3
+    commands:
+      - swipe:
+          start: "50%, 80%"
+          end: "50%, 48%"
+          duration: 400
+- tapOn: "Follow me"
+- assertVisible: "Following your position"
+- tapOn: "Pause"
+- assertVisible: "Paused at your last position"
+- tapOn: "Stop"
+- assertVisible: "Off"
+- tapOn: "Locate once"
+- extendedWaitUntil:
+    visible: "Tracking off"
+    timeout: 20000

@@ -1,0 +1,42 @@
+{
+  "agencyName": "Anteater Express",
+  "timezone": "America/Los_Angeles",
+  "includedRouteNames": ["A Line", "E Line", "H Line", "M Line", "N Line"],
+  "descriptions": {
+    "A Line": "Arroyo Vista · Camino del Sol",
+    "E Line": "Plaza Verde · Campus",
+    "H Line": "Evening housing loop",
+    "M Line": "Main campus loop",
+    "N Line": "Vista del Campo Norte"
+  },
+  "daytimeRoutes": ["A", "E", "M", "N"],
+  "eveningRoutes": ["H", "M"],
+  "boarding": {
+    "TL-8": { "side": "University Center side of Campus Drive", "landmark": "Under Watson Bridge by the Post Office" },
+    "TL-10": { "side": "UCI side of Campus Drive", "landmark": "Under Watson Bridge by Barclay Theatre" },
+    "TL-17": { "side": "West side of California Avenue", "landmark": "At Campus Drive by the American Heart Association" },
+    "TL-1": { "side": "West side of Arroyo Drive", "landmark": "Lower entrance to Arroyo Vista Lot 2, by Building 1006" },
+    "TL-2": { "side": "West side of Arroyo Drive", "landmark": "Beside Camino del Sol, Stop 1" },
+    "TL-3": { "side": "West side of Arroyo Drive", "landmark": "Beside Camino del Sol, Stop 2" },
+    "TL-4": { "side": "West side of Arroyo Drive", "landmark": "Beside Camino del Sol, Stop 3" },
+    "TL-5": { "side": "Arroyo Drive", "landmark": "By Vista del Campo at the signed 631 stop" },
+    "TL-6": { "side": "Arroyo Drive", "landmark": "By Vista del Campo at the signed 621 stop" },
+    "TL-7": { "side": "North side of Campus Drive", "landmark": "At Cornell by Albertsons" },
+    "TL-16": { "side": "South side of Campus Drive", "landmark": "At Cornell beside Puerta del Sol" },
+    "TL-9": { "side": "South side of Campus Drive", "landmark": "At California Avenue beside Plaza Verde" },
+    "TL-12": { "side": "East side of Arroyo Drive", "landmark": "By Vista del Campo Norte, Stop 1" },
+    "TL-13": { "side": "East side of Arroyo Drive", "landmark": "By Vista del Campo Norte, Stop 2" },
+    "TL-14": { "side": "East side of Arroyo Drive", "landmark": "By Vista del Campo Norte, Stop 3" },
+    "TL-18": { "side": "East side of California Avenue", "landmark": "At Arroyo Drive beside Plaza Verde" },
+    "TL-19": { "side": "South side of Campus Drive", "landmark": "At Cornell by the Puerta del Sol shelter" },
+    "TL-20": { "side": "California Avenue", "landmark": "At Arroyo Drive by East Campus Housing" },
+    "TL-21": { "side": "California Avenue", "landmark": "At Adobe Circle by the Anteater Recreation Center" },
+    "TL-22": { "side": "California Avenue", "landmark": "At Anteater Drive by Palo Verde" },
+    "TL-23": { "side": "East Peltason Drive", "landmark": "By Engineering Gateway at the bus cutout" },
+    "TL-24": { "side": "East Peltason Drive", "landmark": "By MSTB at the bus cutout" },
+    "TL-25": { "side": "West Peltason Drive", "landmark": "At the signed Bison Avenue stop" },
+    "TL-26": { "side": "West Peltason Drive", "landmark": "At Academy Way" },
+    "TL-27": { "side": "West Peltason Drive", "landmark": "By Bren Events Center, OCTA stop 3363" },
+    "TL-28": { "side": "West Peltason Drive", "landmark": "At Mesa Road by Humanities and Fine Arts" }
+  }
+}

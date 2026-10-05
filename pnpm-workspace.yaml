@@ -1,0 +1,9 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+  - 'workers/*'
+engineStrict: true
+allowBuilds:
+  '@bundled-es-modules/glob': true
+  esbuild: true
+  workerd: true

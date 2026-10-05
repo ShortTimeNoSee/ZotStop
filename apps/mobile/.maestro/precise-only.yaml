@@ -1,0 +1,26 @@
+appId: dev.zotstop.app
+---
+- launchApp:
+    stopApp: true
+- repeat:
+    times: 3
+    commands:
+      - swipe:
+          start: "50%, 80%"
+          end: "50%, 48%"
+          duration: 400
+- tapOn: "Locate once"
+- extendedWaitUntil:
+    visible: "Tracking off"
+    timeout: 25000
+- assertNotVisible: "Location could not be found"
+
+- scrollUntilVisible:
+    element: "Expand map"
+    direction: UP
+- tapOn: "Expand map"
+- tapOn: "Find my location"
+- extendedWaitUntil:
+    visible: "Your last location"
+    timeout: 25000
+- assertNotVisible: "Location could not be found"

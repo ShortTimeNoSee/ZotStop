@@ -1,0 +1,42 @@
+name = "zotstop-edge-proxy"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[observability]
+enabled = false
+
+[[durable_objects.bindings]]
+name = "RIDER_SIGNALS"
+class_name = "RiderSignals"
+
+[[durable_objects.bindings]]
+name = "USAGE_RETENTION"
+class_name = "UsageRetention"
+
+[[migrations]]
+tag = "rider-signals-v1"
+new_sqlite_classes = ["RiderSignals"]
+
+[[migrations]]
+tag = "usage-retention-v1"
+new_sqlite_classes = ["UsageRetention"]
+
+[[ratelimits]]
+name = "RIDER_RATE"
+namespace_id = "1001"
+
+[ratelimits.simple]
+limit = 60
+period = 60
+
+[assets]
+directory = "../../apps/web/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*"]
+
+[[d1_databases]]
+binding = "UX_DB"
+database_name = "zotstop-ux"
+database_id = "e1aa1767-9e4e-4f24-ab69-e253b4eb0db5"

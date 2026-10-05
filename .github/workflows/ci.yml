@@ -1,0 +1,109 @@
+name: Verify ZotStop
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.26.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: bash .github/scripts/web-checks.sh
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: web-playwright-debug
+          path: apps/web/test-results
+
+  android:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.26.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: android-actions/setup-android@v4
+        with:
+          packages: platform-tools
+      - run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:android
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Install Maestro
+        run: |
+          export MAESTRO_VERSION=2.10.0
+          curl -fsSL https://get.maestro.mobile.dev | bash
+      - uses: reactivecircus/android-emulator-runner@v2.38.0
+        with:
+          api-level: 35
+          target: aosp_atd
+          arch: x86_64
+          profile: pixel_6
+          script: bash .github/scripts/android-ui.sh
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: android-maestro-debug
+          path: ~/.maestro/tests
+
+  ios:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.26.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm --filter @zotstop/mobile sync:ios
+      - run: xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath /tmp/zotstop-ios CODE_SIGNING_ALLOWED=NO build
+      - name: Run iOS simulator flow
+        run: |
+          simulator_id=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; data=json.load(sys.stdin); print(next(device["udid"] for devices in data["devices"].values() for device in devices if device["name"] == "iPhone 17 Pro" and device["isAvailable"]))')
+          xcrun simctl boot "$simulator_id"
+          xcrun simctl bootstatus "$simulator_id" -b
+          xcrun simctl install "$simulator_id" /tmp/zotstop-ios/Build/Products/Debug-iphonesimulator/App.app
+          sleep 10
+          export MAESTRO_VERSION=2.10.0
+          curl -fsSL https://get.maestro.mobile.dev | bash
+          for attempt in 1 2; do
+            if MAESTRO_CLI_NO_ANALYTICS=1 MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED=true MAESTRO_DRIVER_STARTUP_TIMEOUT=240000 "$HOME/.maestro/bin/maestro" --device "$simulator_id" test apps/mobile/.maestro/ios-smoke.yaml; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 2 ]; then exit 1; fi
+            sleep 15
+          done
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: ios-maestro-debug
+          path: ~/.maestro/tests

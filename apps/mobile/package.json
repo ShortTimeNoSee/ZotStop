@@ -1,0 +1,21 @@
+{
+  "name": "@zotstop/mobile",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "sync": "capacitor sync android",
+    "sync:ios": "capacitor sync ios",
+    "build:android": "pnpm -C ../web build && capacitor sync android && cd android && env -u ANDROID_SDK_ROOT ./gradlew assembleDebug",
+    "build:release": "pnpm -C ../web build && capacitor sync android && cd android && env -u ANDROID_SDK_ROOT ./gradlew assembleRelease",
+    "test:native": "maestro test .maestro"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/ios": "^8.5.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  }
+}

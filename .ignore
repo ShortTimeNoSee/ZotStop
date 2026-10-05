@@ -1,0 +1,10 @@
+# Generated JSON
+apps/web/public/data/roads.min.json
+apps/web/public/data/routes.min.json
+packages/transit-engine/assets/routes.min.json
+apps/web/public/data/areas.geojson
+apps/web/public/data/roads.geojson
+apps/web/public/data/places.geojson
+
+# Unneeded documentation
+LICENSE

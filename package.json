@@ -1,0 +1,25 @@
+{
+  "name": "zotstop",
+  "private": true,
+  "packageManager": "pnpm@11.26.0",
+  "engines": {
+    "node": "24.20.0",
+    "pnpm": "11.26.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @zotstop/web dev",
+    "build": "pnpm build:tokens && pnpm --filter @zotstop/web build",
+    "build:tokens": "node packages/tokens/build.mjs",
+    "sync:gtfs": "python scripts/compile-gtfs.py",
+    "sync:map": "python scripts/compile-map.py",
+    "build:android": "pnpm build && pnpm --filter @zotstop/mobile sync && cd apps/mobile/android && env -u ANDROID_SDK_ROOT ./gradlew assembleDebug",
+    "test": "pnpm --filter @zotstop/web test",
+    "test:e2e": "pnpm --filter @zotstop/web test:e2e",
+    "typecheck": "pnpm --filter @zotstop/web typecheck",
+    "build:android:release": "pnpm --filter @zotstop/mobile build:release",
+    "preflight": "bash .github/scripts/preflight.sh"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
